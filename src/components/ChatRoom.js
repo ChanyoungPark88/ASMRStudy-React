@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import ScrollToBottom from 'react-scroll-to-bottom';
-// import axios from 'axios';
+import axios from 'axios';
 
 function ChatRoom({ socket, user, room, setModalIsOpen }) {
   const [currentMessage, setCurrentMessage] = useState('');
