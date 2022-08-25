@@ -36,6 +36,9 @@ function LoginForm({ setModalIsOpen }) {
               type='text'
               placeholder='name'
               onChange={(e) => setUser({ ...user, name: e.target.value })}
+              onKeyPress={(e) => {
+                e.key === 'Enter' && joinRoom();
+              }}
               value={user.name}
               required
             />

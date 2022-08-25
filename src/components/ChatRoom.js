@@ -7,6 +7,8 @@ function ChatRoom({ socket, user, room, setModalIsOpen }) {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
 
+  const time = new Date(Date.now()).toLocaleString();
+
   const Logout = () => {
     // e.preventDefault();
     socket.disconnect();
@@ -20,8 +22,9 @@ function ChatRoom({ socket, user, room, setModalIsOpen }) {
         room: room,
         name: user.name,
         message: currentMessage,
-        time: new Date(Date.now()).toLocaleString(),
+        time: time,
       };
+
       await socket.emit('send_message', messageData);
       setMessageList((list) => [...list, messageData]);
       setCurrentMessage('');
@@ -34,9 +37,6 @@ function ChatRoom({ socket, user, room, setModalIsOpen }) {
     });
   }, [socket]);
 
-  // useEffect(() => {
-  //   await axios.post()
-  // })
   return (
     <div className='chat-window'>
       {/* Chatting header */}
