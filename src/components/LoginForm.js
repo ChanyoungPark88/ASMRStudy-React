@@ -11,6 +11,7 @@ function LoginForm({ setModalIsOpen }) {
   const room = 'ASMR_CHATTING_WEB';
 
   const joinRoom = () => {
+    socket.connect();
     if (user.name !== '') {
       socket.emit('join_room', room);
       setShowChat(true);

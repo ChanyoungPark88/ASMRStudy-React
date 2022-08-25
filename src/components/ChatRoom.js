@@ -7,22 +7,20 @@ function ChatRoom({ socket, user, room, setModalIsOpen }) {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
 
+  const Logout = () => {
+    // e.preventDefault();
+    socket.disconnect();
+    setModalIsOpen(false);
+    console.log(user.name + ` is disconnected`);
+  };
+
   const sendMessage = async () => {
     if (currentMessage !== '') {
       const messageData = {
         room: room,
         name: user.name,
         message: currentMessage,
-        time:
-          new Date(Date.now()).getFullYear() +
-          '/' +
-          (new Date(Date.now()).getMonth() + 1) +
-          '/' +
-          new Date(Date.now()).getDate() +
-          ' ' +
-          new Date(Date.now()).getHours() +
-          ':' +
-          new Date(Date.now()).getMinutes(),
+        time: new Date(Date.now()).toLocaleString(),
       };
       await socket.emit('send_message', messageData);
       setMessageList((list) => [...list, messageData]);
@@ -36,6 +34,9 @@ function ChatRoom({ socket, user, room, setModalIsOpen }) {
     });
   }, [socket]);
 
+  // useEffect(() => {
+  //   await axios.post()
+  // })
   return (
     <div className='chat-window'>
       {/* Chatting header */}
@@ -44,7 +45,7 @@ function ChatRoom({ socket, user, room, setModalIsOpen }) {
         <AiOutlineClose
           className='quit-window'
           onClick={() => {
-            setModalIsOpen(false);
+            Logout();
           }}
         />
       </div>
