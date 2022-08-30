@@ -18,7 +18,7 @@ function LoginForm({ setModalIsOpen }) {
     }
   };
 
-  console.log(user, room);
+  // console.log(user, room);
 
   return (
     <div className='App'>
