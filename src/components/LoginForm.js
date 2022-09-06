@@ -8,7 +8,7 @@ const socket = io.connect('http://localhost:5000');
 function LoginForm({ setModalIsOpen }) {
   const [user, setUser] = useState({ name: '' });
   const [showChat, setShowChat] = useState(false);
-  const room = 'ASMR_CHATTING_WEB';
+  const room = 'CHAT_APP';
 
   const joinRoom = () => {
     socket.connect();

@@ -33,6 +33,10 @@ function ChatRoom({ socket, user, room, setModalIsOpen }) {
 
   const saveToDB = async () => {
     const messageLog = JSON.parse(JSON.stringify(messageList));
+    for (let i = 0; i < messageLog.length; i++) {
+      console.log(Object.entries(messageLog[i]));
+    }
+    // const messageLog = JSON.stringify(messageList);
     await axios
       .post('/api/messages', {
         messageLog,
