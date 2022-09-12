@@ -9,6 +9,11 @@ function ChatRoom({ socket, user, room, setModalIsOpen }) {
 
   const time = new Date(Date.now()).toLocaleString();
 
+  const fetchMessages = async () => {
+    const data = await axios.get('api/messages');
+    console.log(data);
+  };
+
   const Logout = () => {
     // e.preventDefault();
     socket.disconnect();
@@ -31,7 +36,7 @@ function ChatRoom({ socket, user, room, setModalIsOpen }) {
     }
   };
 
-  const saveToDB = async () => {
+  const saveToCache = async () => {
     const messageLog = JSON.parse(JSON.stringify(messageList));
     for (let i = 0; i < messageLog.length; i++) {
       console.log(Object.entries(messageLog[i]));
@@ -55,9 +60,9 @@ function ChatRoom({ socket, user, room, setModalIsOpen }) {
     });
   }, [socket]);
 
-  // useEffect(() => {
-  //   saveToDB();
-  // }, [messageList]);
+  useEffect(() => {
+    fetchMessages();
+  }, []);
 
   return (
     <div className='chat-window'>
@@ -68,7 +73,7 @@ function ChatRoom({ socket, user, room, setModalIsOpen }) {
           className='quit-window'
           onClick={() => {
             Logout();
-            saveToDB();
+            saveToCache();
           }}
         />
       </div>
